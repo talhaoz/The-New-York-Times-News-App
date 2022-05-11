@@ -27,7 +27,7 @@ fun NewsDetailScreen(
 
         WebView(
             state,
-            onCreated = { it.settings.javaScriptEnabled = true }
+            onCreated = { it.settings.javaScriptEnabled = false }
         )
 
     }
