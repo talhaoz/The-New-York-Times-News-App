@@ -3,7 +3,7 @@ package com.talhaoz.newyorktimesnewsapp.feature_nytnews.util
 
 object Constants {
     const val BASE_URL = "https://api.nytimes.com/svc/news/v3/"
-    //const val API_KEY = ""
+    const val API_KEY = "lak0ryOmmoLtdKsXbX9gruL2Un2lKAEg"
     const val ALL_NEWS = "all${'/'}all"
     const val BUSINESS_NEWS = "nyt/business"
     const val FASHION_NEWS = "nyt/fashion"

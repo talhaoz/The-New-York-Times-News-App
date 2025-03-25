@@ -3,8 +3,8 @@ package com.talhaoz.newyorktimesnewsapp.di
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.data.remote.NytNewsApi
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.data.repository.NytNewsRepositoryImpl
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.repository.NytNewsRepository
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.GetNews
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.NewsUseCases
+import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.GetNewsUseCase
+import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.GetNewsUseCaseImpl
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -50,9 +50,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNewsUseCases(repository: NytNewsRepository): NewsUseCases{
-        return NewsUseCases(
-            getNews = GetNews(repository)
-        )
+    fun provideNewsUseCases(repository: NytNewsRepository): GetNewsUseCase{
+        return GetNewsUseCaseImpl(repository)
     }
 }

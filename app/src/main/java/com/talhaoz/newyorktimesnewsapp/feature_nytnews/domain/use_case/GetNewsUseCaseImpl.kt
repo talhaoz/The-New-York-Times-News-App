@@ -5,10 +5,10 @@ import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.repository.NytNews
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.ApiResult
 import javax.inject.Inject
 
-class GetNews @Inject constructor(
+class GetNewsUseCaseImpl @Inject constructor(
     private val repository: NytNewsRepository
-){
-    suspend  operator fun invoke(queryKey: String): ApiResult<NewsDto> {
+) : GetNewsUseCase {
+    override suspend fun invoke(queryKey: String): ApiResult<NewsDto> {
         val response = try {
             repository.getNews(queryKey)
         } catch (e: Exception) {

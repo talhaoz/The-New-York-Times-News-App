@@ -5,18 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.data.remote.dto.NewsDto
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.NewsUseCases
+import com.talhaoz.newyorktimesnewsapp.feature_nytnews.domain.use_case.GetNewsUseCase
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.ApiResult
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.ALL_NEWS
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.BUSINESS_NEWS
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.BUSINESS_NEWS_SCREEN
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.FASHION_NEWS
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.FASHION_NEWS_SCREEN
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.RECENT_NEWS_SCREEN
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.SCIENCE_NEWS
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.SCIENCE_NEWS_SCREEN
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.SPORTS_NEWS
-import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.Constants.SPORTS_NEWS_SCREEN
 import com.talhaoz.newyorktimesnewsapp.feature_nytnews.util.getPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val useCases: NewsUseCases,
+    private val getNewsUseCase: GetNewsUseCase,
 ) : ViewModel() {
 
     private val _state = mutableStateOf<NewsListState>(NewsListState.NewsListScreenLoading)
@@ -54,7 +49,7 @@ class NewsViewModel @Inject constructor(
             _state.value = NewsListState.NewsListScreenLoading
             if(newsCache.containsKey(queryKey).not()) {
                 viewModelScope.launch {
-                    when (val result = useCases.getNews(queryKey)) {
+                    when (val result = getNewsUseCase.invoke(queryKey)) {
                         is ApiResult.Success -> {
                             newsCache[queryKey] = result.data!!
                             _state.value =
